@@ -1,0 +1,30 @@
+---
+  - name: Obtain Auth Token
+    uri:
+      url: "https://{{ ansible_host }}/api/fdm/v1/fdm/token"
+      method: POST
+      body_format: json
+      body:
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+      headers:
+        Content-Type: "application/json"
+    register: auth_response
+
+  - name: Set Auth Token
+    set_fact:
+      auth_token: "{{ auth_response.json.token }}"
+
+  - name: Create Firepower Rule
+    uri:
+      url: "https://{{ ansible_host }}/api/fdm/v1/object/accesspolicies/{{ firepower_policy_name }}/accessrules"
+      method: POST
+      body_format: json
+      body: "{{ lookup('template', 'rule_template.json.j2') }}"
+      headers:
+        Content-Type: "application/json"
+        X-auth-access-token: "{{ auth_token }}"
+    register: result
+    until: result.status == 201
+    retries: 3
+    delay: 5
