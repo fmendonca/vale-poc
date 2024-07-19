@@ -2,5 +2,8 @@
 - name: Deploy Firepower 1:1 NAT Rule
   hosts: all
   gather_facts: no
+  vars:
+    ansible_user: "{{ lookup('env', 'ANSIBLE_NET_USERNAME') }}"
+    ansible_password: "{{ lookup('env', 'ANSIBLE_NET_PASSWORD') }}"
   roles:
     - cisco_firepower
