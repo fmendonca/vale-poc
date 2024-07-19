@@ -1,0 +1,13 @@
+- name: Create Firepower Rule
+  uri:
+    url: "https://{{ inventory_hostname }}/api/fmc_config/v1/domain/default/policy/accesspolicies/{{ firepower_policy_name }}/accessrules"
+    method: POST
+    body_format: json
+    body: "{{ lookup('template', 'rule_template.json.j2') }}"
+    headers:
+      Content-Type: "application/json"
+      X-auth-access-token: "{{ ansible_facts.fmc_token }}"
+  register: result
+  until: result.status == 201
+  retries: 3
+  delay: 5

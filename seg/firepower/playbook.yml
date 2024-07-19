@@ -1,0 +1,6 @@
+---
+- name: Deploy Firepower 1:1 NAT Rule
+  hosts: all
+  gather_facts: no
+  roles:
+    - cisco_firepower

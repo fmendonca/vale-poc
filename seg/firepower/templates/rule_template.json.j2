@@ -1,0 +1,38 @@
+{
+    "action": "ALLOW",
+    "enabled": true,
+    "name": "{{ firepower_rule_name }}",
+    "sourceNetworks": {
+        "objects": [
+            {
+                "type": "Network",
+                "value": "{{ source_ip }}"
+            }
+        ]
+    },
+    "destinationNetworks": {
+        "objects": [
+            {
+                "type": "Network",
+                "value": "{{ destination_ip }}"
+            }
+        ]
+    },
+    "sourcePorts": {
+        "objects": [
+            {
+                "type": "Port",
+                "value": "{{ source_port }}"
+            }
+        ]
+    },
+    "destinationPorts": {
+        "objects": [
+            {
+                "type": "Port",
+                "value": "{{ destination_port }}"
+            }
+        ]
+    },
+    "protocol": "{{ protocol }}"
+}
