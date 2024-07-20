@@ -25,10 +25,10 @@
           sourceZone: "outside_zone"
           destinationZone: "inside_zone"
           sourceNetworks:
-            - type: "Host"
+            - type: "network"
               value: "{{ source_ip }}"  # Substitua pelo IP de origem
           destinationNetworks:
-            - type: "Host"
+            - type: "network"
               value: "{{ destination_ip }}"  # Substitua pela URL ou IP de destino
           sourcePorts: 
             - objectId: "{{ source_port }}"
