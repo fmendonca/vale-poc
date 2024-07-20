@@ -20,6 +20,7 @@
         query_params: {}
         data:
           name: "{{ nat_rule_name }}"
+          type: "accessRule"
           action: "allow"
           enabled: true
           sourceZone: "outside_zone"
