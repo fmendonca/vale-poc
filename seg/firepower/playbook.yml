@@ -13,14 +13,14 @@
         parentId_ran: "{{ lookup('pipe', 'uuidgen') }}"
 
     - name: Configurar a regra de acesso correspondente
-      ftd_configuration:
+      cisco.ftd.ftd_configuration:
         operation: "addAccessRule"
         path_params:
           parentId: "{{ parentId_ran }}"
         query_params: {}
         data:
           name: "{{ nat_rule_name }}"
-          type: "accessRule"
+          type: "accessrule"
           action: "allow"
           enabled: true
           sourceZone: "outside_zone"
