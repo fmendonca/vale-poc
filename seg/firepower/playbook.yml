@@ -17,9 +17,16 @@
           name: "{{ nat_rule_name }}"
           action: "allow"
           enabled: true
-          sourceZone: "outside"
-          destinationZone: "inside"
-          sourceNetwork: "any"
-          destinationNetwork: "{{ destination_ip }}"
-          sourcePort: "{{ source_port }}"
-          destinationPort: "{{ destination_port }}"
+          sourceZone: "outside_zone"
+          destinationZone: "inside_zone"
+          sourceNetworks:
+            - type: "Host"
+              value: "{{ source_ip }}"  # Substitua pelo IP de origem
+          destinationNetworks:
+            - type: "Host"
+              value: "{{ destination_ip }}"  # Substitua pela URL ou IP de destino
+          sourcePorts: 
+            - objectId: "{{ source_port }}"
+          destinationPorts: 
+            - port: "{{ destination_port }}"
+              protocol: "{{ protocol }}"
