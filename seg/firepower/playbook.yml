@@ -13,7 +13,7 @@
         parentId_ran: "{{ lookup('pipe', 'uuidgen') }}"
 
     - name: Configurar a regra de acesso correspondente
-      cisco.ftd.ftd_configuration:
+      ftd_configuration:
         operation: "addAccessRule"
         path_params:
           parentId: "{{ parentId_ran }}"
