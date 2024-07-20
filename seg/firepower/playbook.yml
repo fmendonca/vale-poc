@@ -8,6 +8,26 @@
 
   tasks:
 
+    - name: Create an source_ip
+      ftd_configuration:
+        operation: upsertNetworkObject
+        data:
+          name: "{{ source_ip }}"
+          subType: HOST
+          value: "{{ source_ip }}"
+          type: networkobject
+          dnsResolution: IPV4_AND_IPV6
+
+    - name: Create an destination_ip
+      ftd_configuration:
+        operation: upsertNetworkObject
+        data:
+          name: "{{ destination_ip }}"
+          subType: HOST
+          value: "{{ destination_ip }}"
+          type: networkobject
+          dnsResolution: IPV4_AND_IPV6
+
     - name: Configurar a regra de acesso correspondente
       ftd_configuration:
         operation: "upsertAccessRule"
