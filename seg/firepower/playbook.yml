@@ -9,7 +9,7 @@
   tasks:
     - name: Configurar a regra de NAT 1:1
       ftd_configuration:
-        operation: "addNatRule"
+        operation: "add"
         path_params: {}
         query_params: {}
         data:
@@ -24,7 +24,7 @@
 
     - name: Configurar a regra de acesso correspondente
       ftd_configuration:
-        operation: "addAccessRule"
+        operation: "add"
         path_params: {}
         query_params: {}
         data:
