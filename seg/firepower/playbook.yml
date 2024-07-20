@@ -16,8 +16,8 @@
         data:
           name: "{{ nat_rule_name }}"
           interface: "outside"
-          original_source: "{{ inside_ip }}"
-          translated_source: "{{ outside_ip }}"
+          original_source: "{{ source_ip }}"
+          translated_source: "{{ destination_ip }}"
           destination_interface: "inside"
           original_destination: "any"
           translated_destination: "any"
@@ -36,7 +36,7 @@
           source_zone: "outside"
           destination_zone: "inside"
           source_network: "any"
-          destination_network: "{{ outside_ip }}"
+          destination_network: "{{ destination_ip }}"
           source_port: "{{ source_port }}"
           destination_port: "{{ destination_port }}"
           rule_index: 1
