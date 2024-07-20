@@ -1,37 +1,46 @@
 ---
-- name: Configure 1:1 NAT Rule on Cisco Firepower
+- name: Configurar regra de firewall 1:1 no Cisco Firepower
   hosts: all
+  connection: local
   gather_facts: no
-  vars:
-    ansible_connection: network_cli
-    ansible_network_os: cisco.asa.asa
-    ansible_become: yes
-    ansible_become_method: enable
-    ansible_become_password: Cisco123
-    nat_rule_name: "Static NAT 1:1"
-    inside_ip: "192.168.1.100"
-    outside_ip: "203.0.113.100"
+  collections:
+    - community.network
 
   tasks:
-    - name: Ensure we are logged in to the Firepower device
-      ios_command:
-        commands: ['show version']
-    
-    - name: Create 1:1 NAT rule
-      asa_config:
-        lines:
-          - "object network obj-{{ inside_ip }}"
-          - "host {{ inside_ip }}"
-          - "nat (inside,outside) static {{ outside_ip }}"
-        save_when: modified
+    - name: Configurar a regra de NAT 1:1
+      ftd_configuration:
+        host: "{{ inventory_hostname }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: no
+        command: create
+        resource: nat
+        data:
+          name: "{{ nat_rule_name }}"
+          interface: "outside"
+          original_source: "{{ inside_ip }}"
+          translated_source: "{{ outside_ip }}"
+          destination_interface: "inside"
+          original_destination: "any"
+          translated_destination: "any"
+          nat_type: "static"
 
-    - name: Verify NAT rule
-      ios_command:
-        commands: 
-          - "show running-config object network obj-{{ inside_ip }}"
-          - "show running-config nat"
-      register: nat_output
-
-    - name: Display NAT configuration
-      debug:
-        var: nat_output.stdout_lines
+    - name: Configurar a regra de acesso correspondente
+      ftd_configuration:
+        host: "{{ inventory_hostname }}"
+        username: "{{ ansible_user }}"
+        password: "{{ ansible_password }}"
+        validate_certs: no
+        command: create
+        resource: access_rules
+        data:
+          name: "{{ nat_rule_name }}"
+          action: "allow"
+          enabled: true
+          source_zone: "outside"
+          destination_zone: "inside"
+          source_network: "any"
+          destination_network: "{{ outside_ip }}"
+          source_port: "{{ source_port }}"
+          destination_port: "{{ destination_port }}"
+          rule_index: 1
