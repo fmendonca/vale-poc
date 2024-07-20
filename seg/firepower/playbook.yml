@@ -10,7 +10,7 @@
 
     - name: Configurar a regra de acesso correspondente
       ftd_configuration:
-        operation: ""addAccessRule""
+        operation: "addAccessRule"
         path_params: {}
         query_params: {}
         data:
