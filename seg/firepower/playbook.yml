@@ -7,34 +7,19 @@
     - community.network
 
   tasks:
-    - name: Configurar a regra de NAT 1:1
-      ftd_configuration:
-        operation: "add"
-        path_params: {}
-        query_params: {}
-        data:
-          name: "{{ nat_rule_name }}"
-          interface: "outside"
-          original_source: "{{ source_ip }}"
-          translated_source: "{{ destination_ip }}"
-          destination_interface: "inside"
-          original_destination: "any"
-          translated_destination: "any"
-          nat_type: "static"
 
     - name: Configurar a regra de acesso correspondente
       ftd_configuration:
-        operation: "add"
+        operation: ""addAccessRule""
         path_params: {}
         query_params: {}
         data:
           name: "{{ nat_rule_name }}"
           action: "allow"
           enabled: true
-          source_zone: "outside"
-          destination_zone: "inside"
-          source_network: "any"
-          destination_network: "{{ destination_ip }}"
-          source_port: "{{ source_port }}"
-          destination_port: "{{ destination_port }}"
-          rule_index: 1
+          sourceZone: "outside"
+          destinationZone: "inside"
+          sourceNetwork: "any"
+          destinationNetwork: "{{ destination_ip }}"
+          sourcePort: "{{ source_port }}"
+          destinationPort: "{{ destination_port }}"
