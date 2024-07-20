@@ -1,7 +1,0 @@
-firepower_policy_name: "PolicyName"
-firepower_rule_name: "RuleName"
-source_ip: "10.0.0.1"
-destination_ip: "10.0.0.2"
-source_port: "any"
-destination_port: "any"
-protocol: "tcp"
