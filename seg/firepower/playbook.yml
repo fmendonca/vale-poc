@@ -9,10 +9,6 @@
   tasks:
     - name: Configurar a regra de NAT 1:1
       ftd_configuration:
-        host: "{{ inventory_hostname }}"
-        validate_certs: no
-        command: create
-        resource: nat
         data:
           name: "{{ nat_rule_name }}"
           interface: "outside"
@@ -25,10 +21,6 @@
 
     - name: Configurar a regra de acesso correspondente
       ftd_configuration:
-        host: "{{ inventory_hostname }}"
-        validate_certs: no
-        command: create
-        resource: access_rules
         data:
           name: "{{ nat_rule_name }}"
           action: "allow"
