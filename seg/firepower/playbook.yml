@@ -10,8 +10,6 @@
     - name: Configurar a regra de NAT 1:1
       ftd_configuration:
         host: "{{ inventory_hostname }}"
-        username: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
         validate_certs: no
         command: create
         resource: nat
@@ -28,8 +26,6 @@
     - name: Configurar a regra de acesso correspondente
       ftd_configuration:
         host: "{{ inventory_hostname }}"
-        username: "{{ ansible_user }}"
-        password: "{{ ansible_password }}"
         validate_certs: no
         command: create
         resource: access_rules
