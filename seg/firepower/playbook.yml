@@ -8,10 +8,15 @@
 
   tasks:
 
+    - name: Gerar UUID para parentId
+      set_fact:
+        parentId_ran: "{{ lookup('pipe', 'uuidgen') }}"
+
     - name: Configurar a regra de acesso correspondente
       ftd_configuration:
         operation: "addAccessRule"
-        path_params: {}
+        path_params:
+          parentId: "{{ parentId_ran }}"
         query_params: {}
         data:
           name: "{{ nat_rule_name }}"
